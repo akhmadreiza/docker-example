@@ -1,0 +1,26 @@
+version: '3'
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports: 
+      - "49154:5432"
+    volumes:
+      - database-data:/var/lib/postgres/data/
+
+  #Use <<database_postgre_container_name>>:<<port>> when create new connection in pgAdmin
+  pgadmin:
+    depends_on:
+      - database
+    image: dpage/pgadmin4
+    ports:
+      - "88:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: reizaarmando@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: password
+
+volumes:
+   database-data:
